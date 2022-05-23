@@ -6,7 +6,6 @@ const httpClient = fetchUtils.fetchJson;
 
 export default {
     getList: (resource, params) => {
-        console.log(resource, params)
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
         const query = {
@@ -15,10 +14,9 @@ export default {
             filter: JSON.stringify(params.filter),
         };
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
-        console.log(url)
 
         return httpClient(url).then(({ headers, json }) => {
-            const buff = json.map(item => {
+            const buff = json[0].map((item, index) => {
                 return {
                     ...item,
                     id: item['_id'],
@@ -26,7 +24,7 @@ export default {
             })
             return {
                 data: buff,
-                total: buff.length,
+                total: json[1],
             }
         });
     },
@@ -99,7 +97,7 @@ export default {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
-            data: { ...params.data, id: json.id },
+            data: { ...params.data, id: json._id },
         })),
 
     delete: (resource, params) => {

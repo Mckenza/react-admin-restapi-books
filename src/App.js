@@ -1,19 +1,41 @@
-// in src/App.js
 import * as React from "react";
-import { Admin, Resource, ListGuesser, EditGuesser } from 'react-admin';
-import crudProvider from 'ra-data-nestjsx-crud';
+import { Admin, Resource} from 'react-admin';
 import MyList from "./MyList";
 import { MyEditList } from "./MyEditList";
 import dataProvider from "./dataProvider";
-//import jsonServerProvider from 'ra-data-json-server';
+import { NewBook } from './NewBook';
 
-const dataProv = dataProvider; //crudProvider('http://localhost:3000');
+const dataProv = dataProvider;
 
 
 const App = () => (
   <Admin dataProvider={dataProv}>
-    <Resource name="api.books" list={MyList} edit={MyEditList}/>
+    <Resource name="api.books" list={MyList} edit={MyEditList} create={NewBook}/>
+    
   </Admin>
 );
 
 export default App;
+
+
+
+
+
+
+
+/*
+import * as React from "react";
+import { Admin, Resource, ListGuesser } from 'react-admin';
+import jsonServerProvider from 'ra-data-json-server';
+
+const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+
+
+const App = () => (
+  <Admin dataProvider={dataProvider}>
+    <Resource name="users" list={ListGuesser} />
+  </Admin>
+);
+
+export default App;
+*/
