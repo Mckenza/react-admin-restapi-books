@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+// in src/App.js
+import * as React from "react";
+import { Admin, Resource, ListGuesser, EditGuesser } from 'react-admin';
+import crudProvider from 'ra-data-nestjsx-crud';
+import MyList from "./MyList";
+import { MyEditList } from "./MyEditList";
+import dataProvider from "./dataProvider";
+//import jsonServerProvider from 'ra-data-json-server';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const dataProv = dataProvider; //crudProvider('http://localhost:3000');
+
+
+const App = () => (
+  <Admin dataProvider={dataProv}>
+    <Resource name="api.books" list={MyList} edit={MyEditList}/>
+  </Admin>
+);
 
 export default App;
