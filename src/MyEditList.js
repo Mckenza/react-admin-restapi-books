@@ -5,6 +5,7 @@ import {
     ReferenceInput,
     SelectInput,
     TextInput,
+    NumberInput,
 } from 'react-admin';
 
 export const MyEditList = () => (
@@ -12,7 +13,7 @@ export const MyEditList = () => (
         <SimpleForm>
             <TextInput disabled source="id" />
             <TextInput source="title"></TextInput>
-            <TextInput source="year"></TextInput>
+            <NumberInput source="year"></NumberInput>
             <TextInput source="author"></TextInput>
             <TextInput source="isbn"></TextInput>
         </SimpleForm>

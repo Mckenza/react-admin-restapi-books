@@ -67,7 +67,6 @@ export default {
     },
 
     update: (resource, params) => {
-        console.log(params)
         return httpClient(`${apiUrl}/${resource}/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify(params.data),
@@ -92,16 +91,54 @@ export default {
         }).then(({ json }) => ({ data: json }));
     },
 
-    create: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}`, {
+    create: async (resource, params) => {
+        console.log(params)
+        const req = await fetch(`${apiUrl}/${resource}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(params.data),
+        })
+        if(!req.ok){
+            console.log(12312);
+            return;
+        }
+        const json = await req.json();
+
+        return { data : {
+            ...json,
+            id: json._id,
+        }};
+
+        /*const json = req.json();
+        return {
+            ...params.data,
+            id: json._id,
+        }*/
+
+
+
+    },
+
+    /*
+    create: async (resource, params) => {
+        const req = await httpClient(`${apiUrl}/${resource}`, {
             method: 'POST',
             body: JSON.stringify(params.data),
-        }).then(({ json }) => ({
-            data: { ...params.data, id: json._id },
-        })),
+        }).then(({ json }) => {
+            return {
+                data: { ...params.data, id: json._id },
+            }
+        })
+        console.log(req)
+        return req;
+
+    },
+    */
+
 
     delete: (resource, params) => {
-        console.log(params)
         return httpClient(`${apiUrl}/${resource}/${params.id}`, {
             method: 'DELETE',
         }).then(({ json }) => {
