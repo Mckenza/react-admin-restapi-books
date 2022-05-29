@@ -10,7 +10,7 @@ const dataProv = dataProvider;
 
 const App = () => (
   <Admin dataProvider={dataProv}>
-    <Resource name="api.books" list={MyList} edit={MyEditList} create={NewBook}/>
+    <Resource name="api.books/admin" list={MyList} edit={MyEditList} create={NewBook}/>
     
   </Admin>
 );
